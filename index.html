@@ -35,7 +35,31 @@
   @media (max-width:720px){.links{display:none}}
 
   /* hero */
-  header.hero{padding:96px 0 72px}
+  header.hero{padding:96px 24px 72px;position:relative;isolation:isolate}
+  .glow{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+  .glow::before,.glow::after{content:"";position:absolute;border-radius:50%;filter:blur(80px);opacity:.45;animation:drift 14s ease-in-out infinite alternate}
+  .glow::before{width:420px;height:420px;background:#8c98ff;top:-60px;right:-40px}
+  .glow::after{width:340px;height:340px;background:#f0c27a;top:160px;right:260px;animation-delay:-6s;opacity:.3}
+  @keyframes drift{to{transform:translate(-40px,30px) scale(1.08)}}
+  body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+    background-image:radial-gradient(color-mix(in srgb,var(--ink) 9%,transparent) 1px,transparent 1px);background-size:22px 22px;
+    -webkit-mask-image:linear-gradient(to bottom,#000,transparent 70%);mask-image:linear-gradient(to bottom,#000,transparent 70%)}
+  .status{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:500;padding:7px 14px 7px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line);margin-bottom:22px;box-shadow:0 4px 14px -8px rgba(30,30,60,.25)}
+  .dot{width:8px;height:8px;border-radius:50%;background:#22c55e;position:relative}
+  .dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:#22c55e;animation:ping 1.8s ease-out infinite}
+  @keyframes ping{to{transform:scale(2.6);opacity:0}}
+  .grad{background:linear-gradient(100deg,var(--accent),#a855f7 55%,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat b{background:linear-gradient(100deg,var(--ink),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .card{position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--accent),#a855f7,var(--gold));transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+  .card:hover::before{transform:scaleX(1)}
+  .job{transition:border-color .2s,transform .2s}
+  .job:hover{border-color:color-mix(in srgb,var(--accent) 40%,var(--line));transform:translateX(4px)}
+  .skillbox .tag{transition:all .2s}
+  .skillbox .tag:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+  .contact .wrap{background:linear-gradient(135deg,var(--accent-soft),color-mix(in srgb,var(--gold) 12%,var(--surface)));border:1px solid var(--line);border-radius:24px;padding:64px 24px;max-width:860px}
+  .contact{padding:72px 24px}
+  @media (prefers-reduced-motion:reduce){.glow::before,.glow::after,.dot::after{animation:none}}
   .eyebrow{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--accent);letter-spacing:.04em;margin-bottom:18px}
   h1{font-family:Fraunces,serif;font-weight:600;font-size:clamp(40px,6.4vw,72px);line-height:1.05;letter-spacing:-.025em;max-width:16ch}
   h1 em{font-style:normal;color:var(--accent)}
@@ -129,8 +153,10 @@
 </nav>
 
 <header class="hero wrap" id="top">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="status"><span class="dot"></span>Open to frontend &amp; full-stack roles</div>
   <p class="eyebrow">// IIT Kanpur · Software Developer</p>
-  <h1>Hi, I'm Abhay. I build <em>fast, useful</em> products end to end.</h1>
+  <h1>Hi, I'm Abhay. I build <em class="grad">fast, polished</em> products end to end.</h1>
   <p class="lede">Undergraduate at IIT Kanpur (BioSciences &amp; BioEngineering) who ships full-stack web apps and AI systems. React and Node.js on the front, Django, PostgreSQL and LLM pipelines behind it. Previously at ReachIvy (PPO) and HindTech.</p>
   <div class="cta">
     <a class="btn primary" href="#projects">View projects</a>
